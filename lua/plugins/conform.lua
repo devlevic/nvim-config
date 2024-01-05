@@ -9,8 +9,6 @@ local opts = {
 
   ---@type table<string, conform.FormatterUnit[]>
   formatters_by_ft = {
-    lua = { "stylua" },
-    sh = { "shfmt" },
     typescript = { "prettierd" },
   },
 
