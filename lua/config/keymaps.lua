@@ -5,8 +5,6 @@
 -- Buffer switch
 --
 
-local Util = require("lazyvim.util")
-
 vim.keymap.set("n", "bmn", "<cmd>BufferLineCycleNext<cr>", { desc = "Move to the next buffer" })
 vim.keymap.set("n", "bmp", "<cmd>BufferLineCyclePrev<cr>", { desc = "Move to the previous buffer" })
 
@@ -17,12 +15,24 @@ vim.keymap.set("n", "<A-v>", "<cmd>vsplit<cr>", { desc = "Move to the previous b
 
 -- Terminal
 --
+
+local Terminal = require("toggleterm.terminal").Terminal
+
+function OpenTerminal(count, direction, cmd, dir, close_on_exit)
+  local size = 12
+  if direction == "vertical" then
+    size = 60
+  end
+  Terminal:new({ direction = direction, count = count, cmd = cmd, dir = dir, close_on_exit = close_on_exit })
+    :toggle(size)
+end
+
 vim.keymap.set("n", "th", function()
-  vim.cmd("split | terminal")
-  Util.toggle.number()
+  OpenTerminal(vim.v.count, "horizontal")
 end)
 
 vim.keymap.set("n", "tv", function()
-  vim.cmd("vsplit | terminal")
-  Util.toggle.number()
+  OpenTerminal(vim.v.count, "vertical")
 end)
+
+vim.keymap.set("n", "ta", "<cmd>ToggleTermToggleAll<cr>")
