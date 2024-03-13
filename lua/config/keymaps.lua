@@ -13,6 +13,14 @@ vim.keymap.set("n", "bmp", "<cmd>BufferLineCyclePrev<cr>", { desc = "Move to the
 vim.keymap.set("n", "<A-h>", "<cmd>split<cr>", { desc = "Move to the next buffer" })
 vim.keymap.set("n", "<A-v>", "<cmd>vsplit<cr>", { desc = "Move to the previous buffer" })
 
+vim.keymap.set("n", "<leader>uo", "<cmd>Outline<cr>", { desc = "Open outline" })
+
+vim.keymap.set("n", "<leader>ccf", function()
+  local lazy = require("lazy.core.util")
+  local helper = require("scripts.conform")
+  lazy.info("current formatter: " .. helper.current_formatter)
+end, { desc = "Formatter info" })
+
 -- Terminal
 --
 
@@ -33,6 +41,10 @@ end)
 
 vim.keymap.set("n", "tv", function()
   OpenTerminal(vim.v.count, "vertical")
+end)
+
+vim.keymap.set("n", "tf", function()
+  OpenTerminal(vim.v.count, "float")
 end)
 
 vim.keymap.set("n", "ta", "<cmd>ToggleTermToggleAll<cr>")

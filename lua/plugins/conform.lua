@@ -1,42 +1,14 @@
----@type function
----@param bufnr integer
----@param fmt string
-local function is_fmt_available(bufnr, fmt)
-  local fmt_info = require("conform").get_formatter_info(fmt, bufnr)
+local config_files_in_order_js = { { "biome", "biome" }, { "prettierrc", "prettierd" } }
+local fallback = "biome"
 
-  return fmt_info.available
-end
-
-function file_exists(name)
-  local f = io.open(name, "r")
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
-end
-
-local function biome_or_prettier(bufnr)
-  local have_biome_config = file_exists("./biome.json")
-
-  if have_biome_config then
-    return { "biome" }
-  end
-
-  local have_prettier_config = file_exists("./.prettierrc")
-  if have_prettier_config then
-    return { "prettierd" }
-  end
-
-  print("fallback to [prettierd]")
-  return { "prettierd" }
-end
+local utils = require("scripts.conform")
+utils.set_fallback(fallback)
+local setup_formatter_by_config_file = utils.setup_formatter_by_config_file(config_files_in_order_js)
 
 -- Docs https://www.lazyvim.org/plugins/formatting
 local opts = {
   -- LazyVim will use these options when formatting with the conform.nvim formatter
-  format = {
+  default_format_options = {
     timeout_ms = 3000,
     async = false, -- not recommended to change
     quiet = false, -- not recommended to change
@@ -44,14 +16,11 @@ local opts = {
 
   ---@type table<string, conform.FormatterUnit[] | function>
   formatters_by_ft = {
-    -- javascript = { "biome" },
-    -- javascriptreact = { "prettierd", "biome" },
-    -- typescript = { "biome" },
     -- json = { "biome" },
-    typescriptreact = biome_or_prettier,
-    typescript = biome_or_prettier,
-    javascript = biome_or_prettier,
-    javascriptreact = biome_or_prettier,
+    typescriptreact = setup_formatter_by_config_file,
+    typescript = setup_formatter_by_config_file,
+    javascript = setup_formatter_by_config_file,
+    javascriptreact = setup_formatter_by_config_file,
   },
 
   -- ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
