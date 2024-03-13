@@ -1,6 +1,6 @@
 return {
   "mxsdev/nvim-dap-vscode-js",
-  dependencies = { "mfussenegger/nvim-dap" },
+  dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
   adapters = { "pwa-node" },
   config = function()
     local dap = require("dap")
