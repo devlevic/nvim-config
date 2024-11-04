@@ -48,3 +48,20 @@ vim.keymap.set("n", "tf", function()
 end)
 
 vim.keymap.set("n", "ta", "<cmd>ToggleTermToggleAll<cr>")
+
+vim.keymap.set("n", "<leader>dm", "<cmd>:delm! | delm A-Z0-9<cr>", { desc = "Delete all marks" })
+
+-- CPP commands
+--
+
+vim.keymap.set("n", "<F9>", function()
+  local currentFileFullPath = vim.fn.expandcmd("%")
+  local currentFileName = vim.fn.expandcmd("%:t:r")
+  OpenTerminal(
+    vim.v.count,
+    "vertical",
+    "g++ -pedantic-errors -o " .. currentFileName .. " " .. currentFileFullPath .. "  && ./" .. currentFileName,
+    ".",
+    false
+  )
+end)
