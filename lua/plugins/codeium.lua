@@ -1,5 +1,4 @@
 return {
   "Exafunction/codeium.nvim",
-  opts = {},
-  enabled = false,
+  enabled = true,
 }
