@@ -1,4 +1,4 @@
 return {
   "Exafunction/codeium.nvim",
-  enabled = true,
+  -- enabled = true,
 }
