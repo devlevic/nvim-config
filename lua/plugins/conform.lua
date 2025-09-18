@@ -1,4 +1,4 @@
-local config_files_in_order_js = { { "biome", "biome" }, { "prettierrc", "prettierd" } }
+local config_files_in_order_js = { { "biome", "biome" }, { "prettierrc", "prettierd" }, { "dprint", "dprint" } }
 local fallback = "biome"
 
 local utils = require("scripts.conform")
@@ -14,13 +14,14 @@ local opts = {
     quiet = false, -- not recommended to change
   },
 
-  ---@type table<string, conform.FormatterUnit[] | function>
+  ---@type table<string, string[] | function>
   formatters_by_ft = {
     -- json = { "biome" },
     typescriptreact = setup_formatter_by_config_file,
     typescript = setup_formatter_by_config_file,
     javascript = setup_formatter_by_config_file,
     javascriptreact = setup_formatter_by_config_file,
+    go = { "gofmt" },
   },
 
   -- ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
@@ -28,6 +29,10 @@ local opts = {
   --   injected = { options = { ignore_errors = true } },
   -- },
 }
+
+vim.keymap.set("n", "<leader>cL", function()
+  print("current formatter: " .. utils.current_formatter)
+end, { desc = "Print current formatter" })
 
 return {
   "stevearc/conform.nvim",
