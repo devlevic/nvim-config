@@ -1,0 +1,10 @@
+{
+  "mvvm-view": {
+    "prefix": "mvvw",
+    "body": "\nexport const $1View = (props: TUse$1ModelProps) => {\nreturn (<></>)\n}"
+  },
+  "mvvm-model": {
+    "prefix": "mvvm",
+    "body": "export type TUse$1ModelProps = ReturnType<typeof use$1Model>\nexport function use$1Model() {\n  return {}\n}"
+  }
+}

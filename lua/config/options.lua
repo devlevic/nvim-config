@@ -5,3 +5,8 @@
 local opt = vim.opt
 
 opt.wrap = false
+
+-- Enable this option to avoid conflicts with Prettier.
+vim.g.lazyvim_prettier_needs_config = true
+-- Motivation: Less clutter in completion windows and a more direct usage of snippits
+vim.g.lazyvim_mini_snippets_in_completion = true

@@ -1,0 +1,14 @@
+{
+  "mvvm-model": {
+    "prefix": "mvvm",
+    "body": "export type TUse$1ModelProps = ReturnType<typeof use$1Model>\nexport function use$1Model() {\n  return {}\n}"
+  },
+  "entity": {
+    "prefix": "entity",
+    "body": "import { Entity } from './entity'\nexport interface I$1EntityProps {\nid: number\n}\nexport class $1Entity extends Entity<I$1EntityProps> {}"
+  },
+  "adapter": {
+    "prefix": "adapter",
+    "body": "import type { $1Entity } from '../entities/$1.entity'\nexport interface IList$1Adapter {\n  operation?: {\n    id: {\n      equal: number\n    }\n  }\n}\n export interface $1Adapter {\n list(filters?: IList$1Adapter): Promise<$1Entity[]>\n}"
+  }
+}
