@@ -15,12 +15,6 @@ vim.keymap.set("n", "<A-v>", "<cmd>vsplit<cr>", { desc = "Move to the previous b
 
 vim.keymap.set("n", "<leader>uo", "<cmd>Outline<cr>", { desc = "Open outline" })
 
-vim.keymap.set("n", "<leader>ccf", function()
-  local lazy = require("lazy.core.util")
-  local helper = require("scripts.conform")
-  lazy.info("current formatter: " .. helper.current_formatter)
-end, { desc = "Formatter info" })
-
 -- Terminal
 --
 
