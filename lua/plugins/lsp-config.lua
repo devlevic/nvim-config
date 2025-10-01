@@ -10,8 +10,8 @@ vim.keymap.set("n", "<leader>uub", function()
   else
     config.enable_auto_apply = true
   end
-  config.enable_auto_apply = config.enable_auto_apply
-  print("current formatter: " .. tostring(config.enable_auto_apply))
+
+  print("Auto apply code action: " .. tostring(config.enable_auto_apply))
 end, { desc = "Toggle auto apply" })
 
 return {
@@ -22,20 +22,20 @@ return {
       -- Below is a global setup for all LSPs
       ["*"] = function(_, opts)
         local lsp_formatting = function(bufnr)
-          vim.lsp.buf.code_action({
-            context = {
-              only = { "source.fixAll.biome" }, -- or remove `only` to include all code actions
-              diagnostics = {},
-            },
-            apply = config.enable_auto_apply,
-          })
+          if config.enable_auto_apply == true then
+            vim.lsp.buf.code_action({
+              context = {
+                only = { "source.fixAll.biome" }, -- or remove `only` to include all code actions
+                diagnostics = {},
+              },
+              apply = true,
+            })
+          end
         end
 
         vim.api.nvim_create_autocmd("BufWritePre", {
           callback = function(args)
-            if config.enable_auto_apply then
-              lsp_formatting(args.buf)
-            end
+            lsp_formatting(args.buf)
           end,
           group = vim.api.nvim_create_augroup("LspCodeActionOnSave", { clear = true }),
         })
