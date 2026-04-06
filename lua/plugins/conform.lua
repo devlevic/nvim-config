@@ -6,6 +6,7 @@ local opts = function(_, opts)
     timeout_ms = 3000,
     async = false, -- not recommended to change
     quiet = false, -- not recommended to change
+    lsp_format = "fallback",
   }
 
   ---@type table<string, string[] | function>
@@ -24,10 +25,6 @@ local opts = function(_, opts)
     injected = { options = { ignore_errors = true } },
   }
 end
-
-vim.keymap.set("n", "<leader>cL", function()
-  print("current formatter: " .. utils.current_formatter)
-end, { desc = "Print current formatter" })
 
 return {
   "stevearc/conform.nvim",

@@ -17,6 +17,17 @@ end, { desc = "Toggle auto apply" })
 return {
   "neovim/nvim-lspconfig",
   opts = {
+
+    servers = {
+      vtsls = {
+        on_attach = function(client)
+          -- 🔥 disable LSP formatting
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      },
+    },
+    autoformat = false,
     setup = {
       -- You can configure this globally or per-server
       -- Below is a global setup for all LSPs
